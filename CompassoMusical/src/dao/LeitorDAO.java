@@ -35,10 +35,10 @@ public void salvar1(Leitor leitor) throws Exception {
 	
 		try {
 			
-			String sql = "INSERT INTO dadosPessoais (RGM, nomeAluno, nascAluno,"
+			String sql = "INSERT INTO gerencial (RGM, nomeAluno, nascAluno,"
 					+ "     CPF, emailAluno, endAluno, munAluno,"
 					+ "		ufAluno, celAluno)"
-					+ "     values(?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
+					+ "     values(?, ?, ?, ?, ?, ?, ?, ?, ?);" ;
 			
 			ps = conn.prepareStatement(sql);
 			ps.setInt          (1, leitor.getRGM());
@@ -50,13 +50,13 @@ public void salvar1(Leitor leitor) throws Exception {
 			ps.setString       (7, leitor.getMunAluno());
 			ps.setNString      (8, leitor.getUfAluno());
 			ps.setInt          (9,leitor.getCelAluno());
-			ps.setString       (10, leitor.instrumento());
+			/*ps.setString       (10, leitor.instrumento());
 			ps.setString       (11, leitor.getprofessor());
 			ps.setNString      (12, leitor.getPerAluno());
 			ps.setNString      (13, leitor.getDiscAluno());
 			ps.setNString      (14, leitor.getSemAluno());
 			ps.setNString      (15,leitor.getNotaAluno());
-			ps.setInt          (16, leitor.getFalAluno());
+			ps.setInt          (16, leitor.getFalAluno());*/
 			
 			
 			ps.executeUpdate();
@@ -73,12 +73,12 @@ public void salvar2(Leitor leitor) throws Exception {
 	
 	try {
 		
-		String sql = "INSERT INTO curso (instrumento ,professor,perAluno, discAluno,semAluno,notaAluno,falAluno)"
+		String sql = "INSERT INTO gerencial (instrumento ,professor,perAluno, discAluno,semAluno,notaAluno,falAluno)"
 				+ "     values(?, ?, ?, ?, ?, ?, ?)" ;
 		
 		ps = conn.prepareStatement(sql);
 		
-		ps.setInt          (1, leitor.getRGM());
+		/*ps.setInt          (1, leitor.getRGM());
 		ps.setString       (2, leitor.getNomeAluno());
 		ps.setString       (3,leitor.getNascAluno());
 		ps.setInt          (4, leitor.getCPF());
@@ -86,7 +86,7 @@ public void salvar2(Leitor leitor) throws Exception {
 		ps.setString       (6, leitor.getEndAluno());
 		ps.setString       (7, leitor.getMunAluno());
 		ps.setNString      (8, leitor.getUfAluno());
-		ps.setInt          (9,leitor.getCelAluno());
+		ps.setInt          (9,leitor.getCelAluno());*/
 		ps.setString       (10, leitor.instrumento());
 		ps.setString       (11, leitor.getprofessor());
 		ps.setNString      (12, leitor.getPerAluno());
@@ -105,7 +105,7 @@ public void salvar2(Leitor leitor) throws Exception {
 
 public void excluir(int RGM) throws Exception {
 	try {
-		String sql = "DELETE FROM cursoCompleto " + "WHERE RGM=?";
+		String sql = "DELETE FROM gerencial " + "WHERE RGM=?";
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, RGM);
 		ps.executeUpdate();
@@ -122,30 +122,29 @@ public void excluir(int RGM) throws Exception {
 
 public void alterar(Leitor leitor) throws Exception {
 	try {
-		String sql = "UPDATE cursoCompleto SET RGM=?,nomeAluno =?, nascAluno=?,"
+		String sql = "UPDATE gerencial SET nomeAluno =?, nascAluno=?,"
 				+ "     CPF=?, emailAluno=?, endAluno=?, munAluno=?,"
-				+ "		ufAluno=?, celAluno=?, instrumento=?, professor=?,"
-				+ "     perAluno=?, discAluno=?,semAluno=?, notaAluno=?, falAluno=? WHERE RGM=?";
+				+ "		ufAluno=?, celAluno=? WHERE RGM=?";
 		
 		ps = conn.prepareStatement(sql);
 		
-		ps.setInt          (1, leitor.getRGM());
-		ps.setString       (2, leitor.getNomeAluno());
-		ps.setString       (3,leitor.getNascAluno());
-		ps.setInt          (4, leitor.getCPF());
-		ps.setString       (5, leitor.getEmailAluno());
-		ps.setString       (6, leitor.getEndAluno());
-		ps.setString       (7, leitor.getMunAluno());
-		ps.setNString      (8, leitor.getUfAluno());
-		ps.setInt          (9,leitor.getCelAluno());
-		ps.setString       (10, leitor.instrumento());
+		ps.setInt          (9, leitor.getRGM());
+		ps.setString       (1, leitor.getNomeAluno());
+		ps.setString       (2,leitor.getNascAluno());
+		ps.setInt          (3, leitor.getCPF());
+		ps.setString       (4, leitor.getEmailAluno());
+		ps.setString       (5, leitor.getEndAluno());
+		ps.setString       (6, leitor.getMunAluno());
+		ps.setNString      (7, leitor.getUfAluno());
+		ps.setInt          (8,leitor.getCelAluno());
+		/*ps.setString       (10, leitor.instrumento());
 		ps.setString       (11, leitor.getprofessor());
 		ps.setNString      (12, leitor.getPerAluno());
 		ps.setNString      (13, leitor.getDiscAluno());
 		ps.setNString      (14, leitor.getSemAluno());
 		ps.setNString      (15,leitor.getNotaAluno());
 		ps.setInt          (16, leitor.getFalAluno());
-		ps.setInt          (17, leitor.getRGM());
+		ps.setInt          (17, leitor.getRGM());*/
 		
 		ps.executeUpdate();
 		
@@ -165,7 +164,7 @@ public Leitor consultar(int RGM) throws Exception {
 
 		leitor = new Leitor();
 
-		String sql = "SELECT * FROM cursoCompleto WHERE RGM=? ";
+		String sql = "SELECT * FROM gerencial WHERE RGM=? ";
 
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, RGM);
@@ -184,13 +183,13 @@ public Leitor consultar(int RGM) throws Exception {
 			leitor.setMunAluno    (rs.getString(7));
 			leitor.setUfAluno     (rs.getString(8));
 			leitor.setCelAluno    (rs.getInt(9));
-			leitor.setinstrumento  (rs.getString(10));
+			/*leitor.setinstrumento  (rs.getString(10));
 			leitor.setprofessor (rs.getString(11));
 			leitor.setPerAluno    (rs.getString(12));
 			leitor.setDiscAluno   (rs.getString(13));
 			leitor.setSemAluno    (rs.getString(14));
 			leitor.setNotaAluno   (rs.getString(15));
-			leitor.setFalAluno    (rs.getInt(16));
+			leitor.setFalAluno    (rs.getInt(16));*/
 			
 
 			
@@ -215,7 +214,7 @@ public Leitor consulta1(int RGM) throws Exception {
 
 		leitor = new Leitor();
 
-		String sql = "SELECT * FROM cursoCompleto WHERE RGM=? ";
+		String sql = "SELECT * FROM gerencial WHERE RGM=? ";
 
 		ps = conn.prepareStatement(sql);
 		ps.setInt(1, RGM);
@@ -234,13 +233,13 @@ public Leitor consulta1(int RGM) throws Exception {
 			leitor.setMunAluno    (rs.getString(7));
 			leitor.setUfAluno     (rs.getString(8));
 			leitor.setCelAluno    (rs.getInt(9));
-			leitor.setinstrumento  (rs.getString(10));
+			/*leitor.setinstrumento  (rs.getString(10));
 			leitor.setprofessor (rs.getString(11));
 			leitor.setPerAluno    (rs.getString(12));
 			leitor.setDiscAluno   (rs.getString(13));
 			leitor.setSemAluno    (rs.getString(14));
 			leitor.setNotaAluno   (rs.getString(15));
-			leitor.setFalAluno    (rs.getInt(16));
+			leitor.setFalAluno    (rs.getInt(16));*/
 			
 
 			

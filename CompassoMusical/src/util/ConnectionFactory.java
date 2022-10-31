@@ -2,25 +2,22 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
-
 
 
 public class ConnectionFactory {
 
 	
-		
-		
-		
 		public static Connection getConnection() throws Exception{
 			try {
 				
-				DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				
 				
-				String url = "jdbc:mysql://localhost:3306/dbMuical";
+				String url = "jdbc:mysql://localhost:3306/dbmusical";
 				String login ="root";
 				String senha = "";
 				
@@ -39,11 +36,11 @@ public class ConnectionFactory {
 			
 			public static void main(String arg[]) {
 				
-				try {
+			try {
 					
 					Connection conn = ConnectionFactory.getConnection();
 					
-					/* mensagem no console e em um popup*/
+					/*mensagem no console e em um popup*/
 					JOptionPane.showMessageDialog(null,"Conectado");
 					System.out.print("Conectado");
 					
@@ -52,6 +49,11 @@ public class ConnectionFactory {
 					
 					erro.printStackTrace();
 				}			
+			}
+
+			public static void closeConnection(Connection conn, PreparedStatement stmt, ResultSet rs) {
+				// TODO Auto-generated method stub
+				
 			}
 
 
